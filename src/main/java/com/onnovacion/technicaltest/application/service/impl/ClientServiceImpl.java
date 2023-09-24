@@ -2,6 +2,7 @@ package com.onnovacion.technicaltest.application.service.impl;
 
 import com.onnovacion.technicaltest.application.service.ClientService;
 import com.onnovacion.technicaltest.domain.model.Account;
+import com.onnovacion.technicaltest.domain.model.Client;
 import com.onnovacion.technicaltest.domain.port.ClientPort;
 import org.springframework.stereotype.Service;
 

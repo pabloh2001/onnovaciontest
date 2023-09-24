@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -15,4 +14,12 @@ import java.util.List;
 public class Client {
     private String clientId;
     private ClientType clientType;
+    private String naturalClientDetail;
+    private String juridicalClientDetail;
+
+    public Client(ClientType clientType, String naturalClientDetail, String juridicalClientDetail) {
+        this.clientType = clientType;
+        this.naturalClientDetail = naturalClientDetail;
+        this.juridicalClientDetail = juridicalClientDetail;
+    }
 }

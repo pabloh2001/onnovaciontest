@@ -11,6 +11,7 @@ import com.onnovacion.technicaltest.domain.port.ClientPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ClientPortImpl implements ClientPort {
@@ -32,9 +33,9 @@ public class ClientPortImpl implements ClientPort {
     }
 
     @Override
-    public void save(Client client) {
+    public Client save(Client client) {
         ClientEntity clientEntity = this.clientMapper.toClientEntity(client);
-        this.clientRepository.save(clientEntity);
+        return this.clientMapper.toClient(this.clientRepository.save(clientEntity));
     }
 
     @Override

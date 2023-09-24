@@ -1,5 +1,6 @@
 package com.onnovacion.technicaltest.application.service.impl;
 
+import com.onnovacion.technicaltest.application.dto.RespNaturalClientDTO;
 import com.onnovacion.technicaltest.application.exception.ResourceNotFoundException;
 import com.onnovacion.technicaltest.application.service.NaturalClientService;
 import com.onnovacion.technicaltest.domain.model.Client;
@@ -34,13 +35,16 @@ public class NaturalClientServiceImpl implements NaturalClientService {
     }
 
     @Override
-    public NaturalClient save(NaturalClient naturalClient) {
-        if (naturalClient.getId() != null) throw new IllegalArgumentException("'id' is not expect for this method");
-
+    public RespNaturalClientDTO save(NaturalClient naturalClient) {
+        Client client = null;
         NaturalClient clientSaved = this.naturalClientPort.save(naturalClient);
-        if (clientSaved != null) this.clientPort.save(new Client(clientSaved.getId(), ClientType.NATURAL));
 
-        return clientSaved;
+        if (clientSaved != null)
+            client = this.clientPort.save(new Client(ClientType.NATURAL, clientSaved.getId(), null));
+
+        String fullName = String.format("%s %s", clientSaved.getName(), clientSaved.getLastName());
+        return new RespNaturalClientDTO(client.getClientId(), fullName, clientSaved.getDocumentType(),
+                clientSaved.getDocumentNumber(), clientSaved.getRut());
     }
 
     @Override

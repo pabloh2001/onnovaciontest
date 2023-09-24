@@ -13,10 +13,14 @@ public interface ClientMapper {
     @Mappings({
             @Mapping(source = "clientId", target = "clientId"),
             @Mapping(source = "clientType", target = "clientType"),
+            @Mapping(source = "naturalClientDetail", target = "naturalClientDetail"),
+            @Mapping(source = "juridicalClientDetail", target = "juridicalClientDetail")
     })
     Client toClient(ClientEntity clientEntity);
 
     @InheritInverseConfiguration
+    @Mapping(target = "naturalClient", ignore = true)
+    @Mapping(target = "juridicalClient", ignore = true)
     @Mapping(target = "accounts", ignore = true)
     ClientEntity toClientEntity(Client client);
 }

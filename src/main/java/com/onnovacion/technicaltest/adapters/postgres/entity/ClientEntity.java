@@ -18,10 +18,24 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientEntity {
     @Id
+    @UuidGenerator
     private String clientId;
     @Enumerated(EnumType.STRING)
     @Column(name = "client_type")
     private ClientType clientType;
+
+    @Column(name = "natural_client_detail")
+    private String naturalClientDetail;
+    @Column(name = "juridical_client_detail")
+    private String juridicalClientDetail;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "natural_client_detail", insertable = false, updatable = false)
+    private NaturalClientEntity naturalClient;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "juridical_client_detail", insertable = false, updatable = false)
+    private JuridicalClientEntity juridicalClient;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<AccountEntity> accounts;

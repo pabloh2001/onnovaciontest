@@ -1,5 +1,7 @@
 package com.onnovacion.technicaltest.adapters.web.controller;
 
+import com.onnovacion.technicaltest.application.dto.RespJuridicalClientDTO;
+import com.onnovacion.technicaltest.application.dto.RespNaturalClientDTO;
 import com.onnovacion.technicaltest.application.service.ClientService;
 import com.onnovacion.technicaltest.application.service.JuridicalClientService;
 import com.onnovacion.technicaltest.application.service.NaturalClientService;
@@ -41,7 +43,7 @@ public class ClientController {
     }
 
     @PostMapping("/natural")
-    public ResponseEntity<NaturalClient> saveNaturalClient(@RequestBody NaturalClient naturalClient) {
+    public ResponseEntity<RespNaturalClientDTO> saveNaturalClient(@RequestBody NaturalClient naturalClient) {
         return new ResponseEntity<>(this.naturalClientService.save(naturalClient), HttpStatus.CREATED);
     }
 
@@ -67,7 +69,7 @@ public class ClientController {
     }
 
     @PostMapping("/juridical")
-    public ResponseEntity<JuridicalClient> saveJuridicalClient(@RequestBody JuridicalClient juridicalClient) {
+    public ResponseEntity<RespJuridicalClientDTO> saveJuridicalClient(@RequestBody JuridicalClient juridicalClient) {
         return new ResponseEntity<>(this.juridicalClientService.save(juridicalClient), HttpStatus.CREATED);
     }
 

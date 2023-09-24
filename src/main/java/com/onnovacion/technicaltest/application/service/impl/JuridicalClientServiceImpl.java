@@ -1,5 +1,6 @@
 package com.onnovacion.technicaltest.application.service.impl;
 
+import com.onnovacion.technicaltest.application.dto.RespJuridicalClientDTO;
 import com.onnovacion.technicaltest.application.exception.ResourceNotFoundException;
 import com.onnovacion.technicaltest.application.service.JuridicalClientService;
 import com.onnovacion.technicaltest.domain.model.Client;
@@ -33,11 +34,14 @@ public class JuridicalClientServiceImpl implements JuridicalClientService {
     }
 
     @Override
-    public JuridicalClient save(JuridicalClient juridicalClient) {
+    public RespJuridicalClientDTO save(JuridicalClient juridicalClient) {
+        Client client = null;
         JuridicalClient clientSaved = this.juridicalClientPort.save(juridicalClient);
-        if (clientSaved != null) this.clientPort.save(new Client(clientSaved.getId(), ClientType.JURIDICA));
+        if (clientSaved != null)
+            client = this.clientPort.save(new Client( ClientType.JURIDICA,null, clientSaved.getId()));
 
-        return clientSaved;
+        return new RespJuridicalClientDTO(client.getClientId(), clientSaved.getBusinessName(),
+                clientSaved.getFoundationYear(), clientSaved.getRut());
     }
 
     @Override
